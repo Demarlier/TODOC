@@ -17,7 +17,7 @@ import java.util.Observer;
 import java.util.concurrent.Executor;
 import java.util.function.Function;
 
-public class TaskViewModel extends ViewModel {
+public class  TaskViewModel extends ViewModel {
     // REPOSITORIES
     private final ProjectDataRepository mProjectDataRepository;
     private final TaskDataRepository mTaskDataRepository;

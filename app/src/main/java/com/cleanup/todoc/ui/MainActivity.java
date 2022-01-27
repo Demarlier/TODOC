@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     // 1 - FOR DATA
     private TaskViewModel mTaskViewModel;
     private TasksAdapter mTasksAdapter;
-    //private static int USER_ID = 1;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -124,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         } else if (id == R.id.filter_recent_first) {
             sortMethod = SortMethod.RECENT_FIRST;
         }
+        mTaskViewModel.getProjects();
 
         updateTasks(adapter.getTasks());
 
@@ -245,8 +245,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                     break;
 
             }
-            adapter.updateTasks(tasks);
-            mTaskViewModel.getProjects();
+            List<Project> projects = mTaskViewModel.getProjects();
+            adapter.updateTasks(tasks, projects);
         }
     }
 

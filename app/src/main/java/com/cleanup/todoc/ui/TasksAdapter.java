@@ -26,6 +26,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
      */
     @NonNull
     private List<Task> tasks;
+    private List<Project> projects;
 
     /**
      * The listener for when a task needs to be deleted
@@ -53,11 +54,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
      *
      * @param tasks the list of tasks the adapter deals with to set
      */
-    void updateTasks(@NonNull final List<Task> tasks) {
+    void updateTasks(@NonNull final List<Task> tasks, List<Project> projects) {
         this.tasks = tasks;
+        this.projects = projects;
         notifyDataSetChanged();
     }
-
     @NonNull
     @Override
     public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
@@ -121,7 +122,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
         /**
          * Instantiates a new TaskViewHolder.
          *
-         * @param itemView the view of the task item
+         * @param itemView           the view of the task item
          * @param deleteTaskListener the listener for when a task needs to be deleted to set
          */
         TaskViewHolder(@NonNull View itemView, @NonNull DeleteTaskListener deleteTaskListener) {
@@ -153,8 +154,15 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
         void bind(Task task) {
             lblTaskName.setText(task.getName());
             imgDelete.setTag(task);
+             Project taskProject = null;
 
-            final Project taskProject = task.getProjectId();
+            for (Project project : projects) {
+                if (project.getId()== task.getProjectId())
+                    taskProject = project;
+
+            }
+
+
             if (taskProject != null) {
                 imgProject.setSupportImageTintList(ColorStateList.valueOf(taskProject.getColor()));
                 lblProjectName.setText(taskProject.getName());
