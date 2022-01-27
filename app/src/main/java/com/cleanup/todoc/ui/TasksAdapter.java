@@ -13,6 +13,7 @@ import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,6 +60,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
         this.projects = projects;
         notifyDataSetChanged();
     }
+
     @NonNull
     @Override
     public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
@@ -154,14 +156,16 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
         void bind(Task task) {
             lblTaskName.setText(task.getName());
             imgDelete.setTag(task);
-             Project taskProject = null;
+            Project taskProject = null;
+            if (projects != null) {
 
-            for (Project project : projects) {
-                if (project.getId()== task.getProjectId())
-                    taskProject = project;
 
+                for (Project project : projects) {
+                    if (project.getId() == task.getProjectId())
+                        taskProject = project;
+
+                }
             }
-
 
             if (taskProject != null) {
                 imgProject.setSupportImageTintList(ColorStateList.valueOf(taskProject.getColor()));
